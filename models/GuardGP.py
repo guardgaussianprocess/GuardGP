@@ -30,6 +30,8 @@ def run_guardgp(
     outlier_ratio: float = 0.4,
     outlier_type: str = "asymmetric",
     seed: int = 409,
+    data_seed: int = None,  # if set, fixes the data stream while `seed` only
+                            # controls model init/optimization randomness
     normal_noise: float = 0.2,
     x_range: Tuple[float, float] = (-3, 3),
     shuffle: bool = True,
@@ -91,7 +93,7 @@ def run_guardgp(
         shuffle=shuffle,
         shuffle_tail_only=shuffle_tail_only,
         clean_prefix=clean_prefix,
-        random_seed=seed,
+        random_seed=seed if data_seed is None else data_seed,
         to_tensor=True,
         dtype=dtype,
         device=device,
